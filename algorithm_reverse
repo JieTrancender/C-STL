@@ -1,0 +1,40 @@
+#include "stdafx.h"
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <iterator>
+#include <string>
+
+using namespace std;
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	vector<int> myVector;
+	myVector.insert(myVector.begin(),12);
+	myVector.insert(myVector.end(),89);
+	myVector.insert(myVector.begin() + 2,32);
+	for (int i = 34; i <= 43;++i)
+		myVector.push_back(i);
+	cout << "min: " << *min_element(myVector.begin(),myVector.end()) << endl;
+	cout << "max: " << *max_element(myVector.begin(),myVector.end()) << endl;
+	cout << "Before sort: "<< endl;
+	for (auto i = myVector.begin(); i != myVector.end(); ++i)
+		cout << *i << ' ';
+	cout << endl;
+	sort(myVector.begin(), myVector.end());
+	cout << "After sort: " << endl;
+	for (auto i = myVector.begin(); i != myVector.end(); ++i)
+		cout << *i << ' ';
+	cout << endl;
+	cout << "After reverse:\n";
+	reverse(myVector.begin(),myVector.end());
+	for (auto i = myVector.begin(); i != myVector.end(); ++i)
+		cout << *i << ' ';
+	cout << endl;
+	string str = "1234567890";
+	//reverse(str.begin(),str.end());
+	cout << str << endl;
+	string::iterator pos = find(str.begin(), str.end(), '3');
+	cout << pos - str.begin() << endl;
+	return 0;
+}
