@@ -1,0 +1,50 @@
+#include "stdafx.h"e
+#include <iostream>
+#include <vector>
+#include <deque>
+#include <list>
+#include <algorithm>
+#include <iterator>
+
+using namespace std;
+
+void print(int elem)
+{
+	cout << elem << ' ';
+}
+
+int main()
+{
+	deque<int> coll;
+	for (int i = 1; i <= 9; ++i)
+	{
+		coll.push_back(i);
+	}
+	copy(coll.begin(), coll.end(), ostream_iterator<int>(cout, " "));
+	cout << endl;
+	deque<int>::iterator pos1 = find(coll.begin(), coll.end(), 2);
+	deque<int>::iterator pos2 = find(coll.begin(), coll.end(), 7);
+	for_each(pos1, pos2, print);
+	cout << endl;
+	deque<int>::reverse_iterator rpos1(pos1);
+	deque<int>::reverse_iterator rpos2(pos2);
+	for_each(rpos2, rpos1, print);
+	cout << endl;
+	copy(coll.begin(), coll.end(), ostream_iterator<int>(cout, " "));
+	cout << endl << endl;
+
+	vector<int> col(coll.begin(),coll.end());
+	vector<int>::iterator pos = find(col.begin(), col.end(), 5);
+	cout << "*pos: " << *pos << endl;
+	vector<int>::reverse_iterator rpos(pos);
+	cout << "*rpos: " << *rpos << endl << endl;
+
+	list<int> myList(coll.begin(), coll.end());
+	list<int>::iterator myPos = find(myList.begin(), myList.end(), 5);
+	cout << "*myPos " << *myPos << endl;
+	list<int>::reverse_iterator myRPos(myPos);
+	cout << "*myRPos: " << *myRPos << endl;
+	list<int>::iterator myRRPos = myRPos.base();
+	cout << "*myRRPos: " << *myRRPos << endl;
+	return 0;
+}
