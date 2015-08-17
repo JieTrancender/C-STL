@@ -1,0 +1,61 @@
+#include "stdafx.h"
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <iterator>
+#include <list>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+	vector<int> coll;
+	back_insert_iterator<vector<int> > iter(coll);
+	*iter = 1;
+	++iter;
+	*iter = 2;
+	++iter;
+	*iter = 3;
+	copy(coll.begin(), coll.end(), ostream_iterator<int>(cout, " "));
+	cout << endl;
+	back_inserter(coll) = 44;
+	back_inserter(coll) = 55;
+	copy(coll.begin(), coll.end(), ostream_iterator<int>(cout, " "));
+	cout << endl;
+	coll.reserve(2 * coll.size());//在使用copy()之前必须确保有足够大的空间
+	copy(coll.begin(), coll.end(), back_inserter(coll));
+	copy(coll.begin(), coll.end(), ostream_iterator<int>(cout, " "));
+	cout << endl << endl;
+
+	list<int> col;
+	front_insert_iterator<list<int> > iter_(col);
+	*iter_ = 1;
+	++iter_;
+	*iter_ = 2;
+	++iter_;
+	*iter_ = 3;
+	copy(col.begin(), col.end(), ostream_iterator<int>(cout, " "));
+	cout << endl;
+	front_inserter(col) = 44;
+	front_inserter(col) = 55;
+	copy(col.begin(), col.end(), ostream_iterator<int>(cout, " "));
+	cout << endl;
+	copy(col.begin(), col.end(), front_inserter(col));
+	copy(col.begin(), col.end(), ostream_iterator<int>(cout, " "));
+	cout << endl << endl;
+
+	istream_iterator<string> cinPos(cin);
+	ostream_iterator<string> coutPos(cout, " ");
+	while (cinPos != istream_iterator<string>())
+	{
+		advance(cinPos, 2);
+		if (cinPos != istream_iterator<string>())
+		{
+			*coutPos++ = *cinPos++;
+		}
+	}
+	cout << endl;
+
+	return 0;
+}
