@@ -1,0 +1,65 @@
+#include "stdafx.h"
+#include <iostream>
+#include <set>
+#include <string>
+#include <sstream>
+#include <functional>
+
+using namespace std;
+
+typedef struct Student
+{
+	string strId;
+	string strName;
+	float score;
+	bool operator <(const Student &stu) const
+	{
+		if (strId == stu.strId)
+		{
+			if (strName == stu.strName)
+			{
+				return score < stu.score;
+			}
+			else
+				return strName < stu.strName;
+		}
+		else
+			return strId < stu.strId;
+	}
+}Stu;
+int _tmain(int argc, _TCHAR* argv[])
+{
+	set<Stu> mySet;
+	set<Stu>::const_iterator myIterator;
+	Stu stu;
+	int n;
+// 	cin >> n;
+// 	while (n--)
+// 	{
+// 		cin >> stu.strId >> stu.strName >> stu.score;
+// 		mySet.insert(stu);
+// 	}
+// 	for (myIterator = mySet.begin(); myIterator != mySet.end(); ++myIterator)
+// 	{
+// 		cout << myIterator->strId << ' ' << myIterator->strName << ' ' <<  myIterator->score << endl;
+// 	}
+	typedef set<int, less<int> > IntSet;
+	typedef set<int, greater<int> > IntSet_;
+	char buf[] = { 0x30, 0xff, 0x12, 0x32, 0x00 };
+	ostringstream os;
+	for (int i = 0; i < sizeof(buf) / sizeof(buf[0]); ++i)
+		os << buf[i];
+	string s = os.str();
+	copy(s.begin(), s.end(), ostream_iterator<char>(cout, " "));
+	cout << endl;
+	for (auto it = s.begin(); it != s.end(); ++it)
+		cout << *it << ' ';
+	cout << endl;
+	int buffer[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+	stringstream ss;
+	for (int i = 0; i < sizeof(buffer) / sizeof(buffer[0]); ++i)
+		ss << buffer[i];
+	string sss = ss.str();
+	copy(sss.begin(), sss.end(), ostream_iterator<char>(cout, " "));
+	return 0;
+}
