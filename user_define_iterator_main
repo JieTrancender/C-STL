@@ -1,0 +1,29 @@
+#include "stdafx.h"
+#include "D:\\C++STL\\C++迭代器\\自定义迭代器\\assoiter.hpp"
+#include <iostream>
+#include <set>
+#include <algorithm>
+
+using namespace std;
+
+int main()
+{
+	set<int> coll;
+	asso_insert_iterator<set<int> > iter(coll);
+	*iter = 1;
+	++iter;
+	*iter = 2;
+	++iter;
+	*iter = 3;
+
+	copy(coll.begin(), coll.end(), ostream_iterator<int>(cout, " "));
+	cout << endl;
+
+	int vals[] = { 33, 67, -4, 13, 5, 2 };
+
+	copy(vals, vals + (sizeof(vals) / sizeof(vals[0])), asso_inserter(coll));
+
+	copy(coll.begin(), coll.end(), ostream_iterator<int>(cout, " "));
+	cout << endl;
+	return 0;
+}
