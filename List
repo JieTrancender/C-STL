@@ -1,0 +1,89 @@
+#include "stdafx.h"
+#include <iostream>
+#include <list>
+#include <iterator>
+#include <algorithm>
+
+using namespace std;
+
+void Print(const list<int> &coll1, const list<int> &coll2)
+{
+	cout << "List1:\n";
+	copy(coll1.begin(), coll1.end(), ostream_iterator<int>(cout, " "));
+	cout << endl;
+	cout << "List2:\n";
+	copy(coll2.begin(), coll2.end(), ostream_iterator<int>(cout, " "));
+	cout << endl;
+}
+
+bool IsPrime(const int &num)
+{
+	if (num == 0 || num == 1)
+		return true;
+	else
+	{
+		int num_1;
+		for (num_1 = num / 2; num % num_1 != 0; --num_1)
+		{
+
+		}
+		return num_1 == 1;
+	}
+}
+/************************************************************************/
+/*
+*@author:
+*@param
+*
+*/
+/************************************************************************/
+int _tmain(int argc, _TCHAR* argv[])
+{
+	list<int> coll1, coll2;
+	for (int i = 0; i < 10; ++i)
+	{
+		coll1.push_back(i);
+		coll2.push_back(i);
+	}
+	Print(coll1, coll2);
+
+	coll1.push_front(6);
+	coll2.push_back(6);
+	Print(coll1, coll2);
+
+	coll1.insert(coll1.begin(), 6, 6);
+	coll2.insert(coll2.end(), coll1.begin(), coll1.end());
+	Print(coll1, coll2);
+
+// 	sort(coll1.begin(), coll1.end());//Error,can't use the sort of algorithm
+// 	sort(coll2.begin(), coll2.end());//Error,can't use the sort of algorithm
+// 	Print(coll1, coll2);
+
+	coll1.sort();
+	coll2.sort();
+	Print(coll1,coll2);
+
+	coll1.remove(6);
+	coll2.remove_if(IsPrime);
+	Print(coll1, coll2);
+
+	coll1.merge(coll2);
+	Print(coll1, coll2);
+
+	coll2.merge(coll1);
+	Print(coll1, coll2);
+
+	auto pos = find(coll1.begin(), coll1.end(), 3);//必须判断是否指向最后，防止后续操作失败
+	if (pos != coll1.end())
+	{
+		coll1.erase(pos);
+		coll2.resize(coll2.size() + 2);
+		Print(coll1, coll2);
+	}
+
+	coll1.clear();
+	coll2.clear();
+	Print(coll1, coll2);
+
+	return 0;
+}
