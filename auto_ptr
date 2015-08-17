@@ -1,0 +1,39 @@
+#include "stdafx.h"
+#include <iostream>
+#include <memory>
+
+using namespace std;
+
+template<typename T>
+ostream& operator<< (ostream& strm, const auto_ptr<T>& p)
+{
+	if (p.get() == nullptr)
+	{
+		strm << "nullptr\n";
+	}
+	else
+	{
+		strm << *p << endl;
+	}
+	return strm;
+}
+
+int main()
+{
+	auto_ptr<int> p(new int(42));
+	auto_ptr<int> q;
+	cout << "After initialization:" << endl;
+	cout << "p: " << p << endl;
+	cout << "q: " << q << endl;
+	q = p;
+	cout << "After assigning auto pointers:" << endl;
+	cout << "p: " << p << endl;
+	cout << "q: " << q << endl;
+
+	*q += 13;
+	p = q;
+	cout << "After change and reassignment: " << endl;
+	cout << "p: " << p << endl;
+	cout << "q: " << q << endl;
+	return 0;
+}
