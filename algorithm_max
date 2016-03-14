@@ -1,0 +1,30 @@
+#include "stdafx.h"
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+bool int_ptr_less(int *a, int *b)
+{
+	return *a < *b;
+}
+
+int main()
+{
+	int x = 17;
+	int y = 42;
+	int *px = &x;
+	int *py = &y;
+	int *pmax;
+
+	pmax = max(px, py, int_ptr_less);
+	cout << *pmax << endl;
+
+	int a[20];
+	int *ptr_1 = &(a[0]);
+	int *ptr_2 = &(a[19]);
+	ptrdiff_t ptr = ptr_2 - ptr_1;
+	cout << ptr << endl;
+
+	return 0;
+}

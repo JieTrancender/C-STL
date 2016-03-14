@@ -1,0 +1,24 @@
+#include "stdafx.h"
+#include <iostream>
+#include <map>
+#include <string>
+
+using namespace std;
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	typedef multimap<int, string> isMMap;
+	typedef multimap<int, string>::const_iterator isMMapIterator;
+
+	isMMap myMap;
+	isMMapIterator myIterator;
+
+	myMap.insert(make_pair(1, "I "));
+	myMap.insert(make_pair(2, "am "));
+	myMap.insert(make_pair(3, "a "));
+	myMap.insert(make_pair(4, "student ."));
+	for (myIterator = myMap.begin(); myIterator != myMap.end(); ++myIterator)
+		cout << myIterator->second;
+	cout << endl;
+	return 0;
+}

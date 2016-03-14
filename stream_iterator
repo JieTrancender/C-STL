@@ -1,0 +1,29 @@
+#include "stdafx.h"
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <string>
+
+using namespace std;
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	vector<string> coll;
+	/*
+	*istream_iterator<string>(cin),产生一个可从"标准输入流cin"读取数据的stream iterator,
+		其中template参数string表示这个stream iterator专读取该种型别的元素的职责
+	*istream_iterator<string>调用istream iterators的default构造函数，产生一个代表"流结束符号"的迭代器
+		因此这个算法便从cin读取所有strings，直到读无可度为止，在back inserter的协助下，这些文字被拷贝并插入coll中
+	*unique_copy(coll.begin(),coll.end(),ostream_iterator<string>(cout,"\n"))将所有元素拷贝到目的端cout
+		算法unique_copy()会消除毗邻的重复值
+	*ostream_iterator<string>(cout,"\")会产生一个output stream iterator，透过operator<<向cout写入strings，
+		cout之后的第二参数被用来作为元素之间的分隔符
+	*/
+	copy(istream_iterator<string>(cin), istream_iterator<string>(), back_inserter(coll));
+	sort(coll.begin(), coll.end());
+	unique_copy(coll.begin(), coll.end(), ostream_iterator<string>(cout, "\n"));
+
+	string str = "i am a student .";
+	unique_copy(str.begin(), str.end(), ostream_iterator<char>(cout));
+	return 0;
+}

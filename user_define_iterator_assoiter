@@ -1,0 +1,46 @@
+/************************************************************************/
+/*
+*自己写迭代器需要提供特性(traits)两种方法：
+*1、提供必要的五种型别定义，C++标准程序库提供了一个特殊基础类别(base class)iterator<>,专门用来进行这类型别定义
+*	class Myiterator:public std::iterator<std::bidirectional_iterator_tag,type,std::ptrdiff_t,type*,type&>{...}
+*	第一个参数定义迭代器类型，第二个定义元素型别，但三个定义距离型别，第四个低音pointer型别，第五个定义reference型别
+*	最后三个参数有默认值ptrdiff_t,type*,type&
+*2、提供一个特化版本的iterator_traits结构
+*/
+/************************************************************************/
+
+#include <iterator>
+
+//自定义插入迭代器模板类
+template<class Container>
+class asso_insert_iterator :public std::iterator < std::output_iterator_tag, void, void, void, void >
+{
+protected:
+	Container &container;//插入元素的类型
+
+public:
+	explicit asso_insert_iterator(Container &c) :container(c){};
+	asso_insert_iterator<Container>& operator=(const typename Container::value_type& value)
+	{
+		container.insert(value);
+		return *this;
+	}
+	asso_insert_iterator<Container>& operator*()
+	{
+		return *this;
+	}
+	asso_insert_iterator<Container>& operator++()
+	{
+		return *this;
+	}
+	asso_insert_iterator<Container>& operator++ (int)
+	{
+		return *this;
+	}
+};
+
+ template <class Container>
+ inline asso_insert_iterator<Container> asso_inserter(Container& c)
+ {
+	 return asso_insert_iterator<Container>(c);
+ }

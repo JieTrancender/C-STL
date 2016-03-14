@@ -1,0 +1,46 @@
+#include "stdafx.h"
+#include <iostream>
+#include <vector>
+#include <deque>
+#include <string>
+#include <algorithm>
+#include <random>
+
+using namespace std;
+
+template <typename anytype>
+void print(const string &s, const anytype &c)
+{
+	cout << s;
+	for (const auto &e : c)
+	{
+		cout << e << " ";
+	}
+	cout << endl;
+}
+
+int main()
+{
+	const int elemcount = 5;
+	vector<int> v(elemcount);
+	deque<int> dq(elemcount);
+
+	random_device rd;
+	mt19937 engine(rd());
+	uniform_int_distribution<int> dist(-9, 9);
+	generate_n(v.begin(), elemcount, [&](){return dist(engine); });//generate_n函数的使用
+	print("vector v is: ", v);
+
+	generate(dq.begin(), dq.end(), [&](){return dist(engine); });//generate函数的使用
+	print("deque dq is: ", dq);
+
+	int coll[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+	vector<int> col(coll, coll + sizeof(coll) / sizeof(coll[0]));//用sizeof(coll[0])而不是int
+	for (auto &i : col)//c++11
+	{
+		cout << i << ' ';
+	}
+	cout << endl;
+	col.clear
+	return 0;
+}

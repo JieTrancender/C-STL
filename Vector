@@ -1,0 +1,86 @@
+#include "stdafx.h"
+#include <iostream>
+#include <vector>
+#include <string>
+#include <iterator>
+
+using namespace std;
+
+int main()
+{
+	vector<string> v(5, "Hi");
+	vector<int>v_1;
+	for (size_t i = 0; i < 10; ++i)
+	{
+		/*cout << "Element " << i << " is " << v.at(i) << endl;*///at的好处是会抛出异常
+	}
+	v.clear();
+	for (int i = 0; i < 5; ++i)
+	{
+		v_1.push_back(i);
+	}
+	cout << "The first element is " << v_1.front() << " and the last element is " << v_1.back() << endl;
+	v_1.pop_back();
+	for (vector<int>::iterator it = v_1.begin(); it != v_1.end(); ++it)
+	{
+		cout << *it << ' ';
+	}
+	cout << endl;
+	cout << v.capacity() << ' ' << v_1.capacity() << endl;
+
+	vector<char> alphaVector;
+	for (int i = 0; i < 10; ++i)
+	{
+		alphaVector.push_back(i + 65);
+	}
+	int size = alphaVector.size();
+	vector<char>::iterator startIterator;
+	vector<char>::iterator tempIterator;
+	for (int i = 0; i < size; ++i)
+	{
+		startIterator = alphaVector.begin();
+		alphaVector.erase(startIterator);//erase函数的返回值是指向删除的最后一个元素的下一位置的迭代器
+		for (tempIterator = alphaVector.begin(); tempIterator != alphaVector.end(); ++tempIterator)
+		{
+			cout << *tempIterator;
+		}
+		cout << endl;
+	}
+
+	vector<int> myVector;
+	int *p;
+	size_t i;
+	p = myVector.get_allocator().allocate(5);
+	for (i = 0; i < 5; ++i) p[i] = i;
+	for (i = 0; i < 5; ++i) cout << ' ' << p[i];
+	cout << endl;
+	myVector.get_allocator().deallocate(p, 5);
+
+	vector<char> v_2;
+	for (int i = 0; i < 10; ++i)
+	{
+		v_2.push_back(i + 65);
+	}
+	vector <char> v_3(5, 'A');
+	v_2.insert(v_2.begin() + 2,v_3.begin(), v_3.end());
+	for (auto i = v_2.begin(); i != v_2.end(); ++i)
+	{
+		cout << *i << ' ';
+	}
+	cout << endl;
+	cout << v_2.max_size() << endl;
+	for (auto i = v_2.rbegin(); i != v_2.rend(); ++i)
+	{
+		cout << *i << ' ';
+	}
+	cout << endl;
+	v_2.reserve(12);//reserve函数为当前vector预留至少共容纳size个元素的空间
+	vector<char> v_4(4, 'H');
+	v_4.resize(8, 'B');
+	for (auto i = v_4.begin(); i != v_4.end(); ++i)
+	{
+		cout << *i << ' ';
+	}
+	cout << endl;
+	return 0;
+}

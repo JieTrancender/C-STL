@@ -1,0 +1,73 @@
+#include "stdafx.h"
+#include <iostream>
+#include <set>
+#include <iterator>
+#include <map>
+#include <string>
+
+using namespace std;
+
+void Print(const set<int> &coll)
+{
+	cout << "Set:\n";
+	copy(coll.begin(), coll.end(), ostream_iterator<int>(cout, " "));
+	cout << endl;
+}
+
+template<typename first_type,typename last_type>
+void Print_(const map<first_type, last_type> &coll)
+{
+	cout << "Map:" << endl;
+	for (auto it = coll.begin(); it != coll.end(); ++it)
+	{
+		cout << it->first << ' ' << it->second << endl;
+	}
+}
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	typedef map<string, float> stringFloatMap;
+	stringFloatMap col;
+	stringFloatMap::iterator pos;
+	col.insert(make_pair("MoJie", 19));
+	col.insert(make_pair("MoYangMing", 20));
+	col.insert(make_pair("MoYing", 24));
+
+	Print_(col);
+	for (pos = col.begin(); pos != col.end();)
+	{
+		if (pos->second == 20)
+		{
+			col.erase(pos++);
+		}
+		else
+			++pos;
+	}
+
+	Print_(col);
+
+	set<int> coll;
+	for (int i = 0; i < 6; ++i)
+	{
+		coll.insert(i);
+	}
+	Print(coll);
+
+	coll.insert(5);
+	coll.insert(++coll.begin(), 9);
+	coll.insert(15);
+	coll.insert(8);
+	Print(coll);
+
+	cout << "lower_bound(3):" << *coll.lower_bound(3) << endl;
+	cout << "upper_bound(3):" << *coll.upper_bound(3) << endl;
+	//The function equal_range() return two iterator -one to the first element that contains key,
+	//another to a point just after the last element that contains key
+	cout << "equal_range(3):" << *coll.equal_range(3).first << ' ' << *coll.equal_range(3).second << endl;
+
+	cout << "lower_bound(5):" << *coll.lower_bound(5) << endl;
+	cout << "upper_bound(5):" << *coll.upper_bound(5) << endl;
+	cout << "equal_range(5):" << *coll.equal_range(5).first << ' ' << *coll.equal_range(5).second << endl;
+
+	return 0;
+}
