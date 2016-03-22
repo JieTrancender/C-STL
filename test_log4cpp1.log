@@ -1,0 +1,4 @@
+1458485971 ALERT mywarn : Alert info
+1458485971 WARN mywarn : This will be a logged warning
+1458485971 CRIT mywarn : Importance depends on context
+1458485971 CRIT mywarn : This will show up << as 1 critical message300
