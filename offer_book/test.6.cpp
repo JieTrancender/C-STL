@@ -6,6 +6,7 @@
     > Created Time: Mon May 16 15:37:53 2016
  ************************************************************************/
 #include <iostream>
+#include <stack>
 
 struct ListNode
 {
@@ -13,6 +14,7 @@ struct ListNode
 	ListNode *m_pNext;
 };
 
+//尾部增加借点
 void add_to_tail(ListNode** pHead, int value)
 {
 	ListNode *pNew = new ListNode();
@@ -37,6 +39,7 @@ void add_to_tail(ListNode** pHead, int value)
 	}
 }
 
+//删除节点
 void remove_node(ListNode** pHead, int value)
 {
 	if (pHead == nullptr || *pHead == nullptr)
@@ -70,6 +73,7 @@ void remove_node(ListNode** pHead, int value)
 	}
 }
 
+//顺序打印链表
 void print_list(ListNode* pHead)
 {
 	if (pHead == nullptr)
@@ -83,6 +87,40 @@ void print_list(ListNode* pHead)
 	std::cout << std::endl;
 }
 
+//逆向打印链表 - 使用栈实现
+void print_list_reversingly_iteratively(ListNode* pHead)
+{
+	std::stack<ListNode*> nodes;
+
+	ListNode *pNode = pHead;
+	while (pNode != nullptr)
+	{
+		nodes.push(pNode);
+		pNode = pNode->m_pNext;
+	}
+
+	while (!nodes.empty())
+	{
+		pNode = nodes.top();
+		std::cout << pNode->m_nValue << " ";
+		nodes.pop();
+	}
+	std::cout << std::endl;
+}
+
+//逆向打印链表 - 使用递归实现
+void print_list_reversingly_recursively(ListNode* pHead)
+{
+	if (pHead != nullptr)
+	{
+		if (pHead->m_pNext != nullptr)
+		{
+			print_list_reversingly_recursively(pHead->m_pNext);
+		}
+		std::cout << pHead->m_nValue << ' ';
+	}
+}
+
 int main(int argc, char** argv)
 {
 	ListNode *head;
@@ -91,9 +129,15 @@ int main(int argc, char** argv)
 	add_to_tail(&head, 3);
 
 	print_list(head);
+	print_list_reversingly_iteratively(head);
+	print_list_reversingly_recursively(head);
+	std::cout << std::endl;
 
 	remove_node(&head, 5);
 	print_list(head);
+	print_list_reversingly_iteratively(head);
+	print_list_reversingly_recursively(head);
+	std::cout << std::endl;
 
 	remove_node(&head, 1);
 	print_list(head);
