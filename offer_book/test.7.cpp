@@ -7,6 +7,7 @@
  ************************************************************************/
 //题目描述:给定二叉树的前序遍历和中序遍历，重建二叉树
 #include <iostream>
+#include <cstdio>
 #include <exception>
 
 struct InvalidInput : public std::exception
@@ -116,6 +117,9 @@ void print_binary_tree_postorder(BinaryTreeNode* pRoot)
 
 int main(int argc, char** argv)
 {
+
+	std::freopen("data.log", "a+", stdout);
+
 	int preorder[] = {1, 2, 4, 7, 3, 5, 6, 8};
 	int inorder[] = {4, 7, 2, 1, 5, 3, 8, 6};
 	try

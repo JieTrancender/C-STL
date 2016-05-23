@@ -1,0 +1,4 @@
+ba 2
+b 3
+band 1
+abc 0
